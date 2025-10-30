@@ -9,7 +9,19 @@ export class AuthController {
 
   @Post('login')
   async login(@Body() body: { email: string; password: string }) {
-    // Simple demo login - in production, validate credentials properly
+    // IMPORTANT: This is a demo implementation
+    // In production, you must:
+    // 1. Query your database for the user by email
+    // 2. Verify the password hash using bcrypt.compare()
+    // 3. Return proper error messages for invalid credentials
+    // 4. Implement rate limiting to prevent brute force attacks
+    // 5. Consider adding 2FA for enhanced security
+
+    if (!body.email || !body.password) {
+      return { error: 'Email and password are required' };
+    }
+
+    // Demo user - replace with real database query
     const user = {
       id: Date.now().toString(),
       email: body.email,

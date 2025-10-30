@@ -12,8 +12,13 @@ export interface User {
 
 @Injectable()
 export class AuthService {
-  // In-memory user store for demo purposes
-  // In production, use a database
+  // IMPORTANT: In-memory user store is for DEMO purposes only
+  // In production, you MUST replace this with a proper database solution:
+  // - Use PostgreSQL, MongoDB, MySQL, or another database
+  // - Implement proper user repositories with TypeORM, Prisma, or Mongoose
+  // - Store password hashes, not plain passwords
+  // - Implement proper session management
+  // - Consider distributed caching (Redis) for multi-instance deployments
   private users: Map<string, User> = new Map();
 
   constructor(private jwtService: JwtService) {}

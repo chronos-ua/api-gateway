@@ -37,9 +37,15 @@ export class EventsGateway implements OnGatewayInit, OnGatewayConnection, OnGate
         client.handshake.headers?.authorization?.replace('Bearer ', '');
 
       if (token) {
-        const payload = this.jwtService.verify(token);
-        client.data.user = payload;
-        console.log(`✅ Client connected: ${client.id} (User: ${payload.email})`);
+        try {
+          const payload = this.jwtService.verify(token);
+          client.data.user = payload;
+          console.log(`✅ Client connected: ${client.id} (User: ${payload.email})`);
+        } catch (tokenError) {
+          console.log(`❌ Invalid token for client: ${client.id}`);
+          client.disconnect();
+          return;
+        }
       } else {
         console.log(`⚠️  Client connected without authentication: ${client.id}`);
       }
